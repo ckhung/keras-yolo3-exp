@@ -11,7 +11,6 @@ to do the conversion just once.
 
 ```
 wget https://pjreddie.com/media/files/yolov3.weights.
-# 
 python3 qqwweee-keras-yolo3/convert.py qqwweee-keras-yolo3/yolov3.cfg yolov3.weights yolo.h5
 python3 y3detect.py -w yolo.h5 -o /tmp/result/ *.jpg
 ```
