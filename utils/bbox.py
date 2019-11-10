@@ -4,13 +4,13 @@ import cv2
 from .colors import get_color
 
 class BoundBox:
-    def __init__(self, xmin, ymin, xmax, ymax, c = None, classes = None):
+    def __init__(self, xmin, ymin, xmax, ymax, objness = None, classes = None):
         self.xmin = xmin
         self.ymin = ymin
         self.xmax = xmax
         self.ymax = ymax
         
-        self.c       = c
+        self.objness = objness
         self.classes = classes
 
         self.label = -1
@@ -26,7 +26,7 @@ class BoundBox:
         if self.score == -1:
             self.score = self.classes[self.get_label()]
             
-        return self.score      
+        return self.score
 
 def _interval_overlap(interval_a, interval_b):
     x1, x2 = interval_a
@@ -45,7 +45,7 @@ def _interval_overlap(interval_a, interval_b):
 
 def bbox_iou(box1, box2):
     intersect_w = _interval_overlap([box1.xmin, box1.xmax], [box2.xmin, box2.xmax])
-    intersect_h = _interval_overlap([box1.ymin, box1.ymax], [box2.ymin, box2.ymax])  
+    intersect_h = _interval_overlap([box1.ymin, box1.ymax], [box2.ymin, box2.ymax])
     
     intersect = intersect_w * intersect_h
 
@@ -86,4 +86,4 @@ def draw_boxes(image, boxes, labels, obj_thresh, quiet=True):
                         color=(0,0,0), 
                         thickness=2)
         
-    return image          
+    return image      
